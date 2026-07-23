@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+vars:
+  SRC_PATH: .\cmd\emulator
+  BUILD_PATH: .\build\release
+
+tasks:
+  build:
+    desc: Builds the project
+    cmds:
+      - go build -o "{{.BUILD_PATH}}\release.exe" "{{.SRC_PATH}}"
+    silent: true
+  run:
+    desc: Builds and runs the project
+    cmds:
+      - go run "{{.SRC_PATH}}" {{.CLI_ARGS}}
+    silent: true
+  clean:
+    desc: Cleans all build files
+    cmds:
+      - rm "{{.BUILD_PATH}}"\\release.exe
+    silent: true
+  test:
+    desc: Testing
+    cmds:
+      - go test {{.CLI_ARGS}} ./...
+    silent: true
